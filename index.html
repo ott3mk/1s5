@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1s5 lover</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+        #game-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .btn {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .btn:hidden {
+            display: none;
+        }
+        .hidden {
+    display: none;
+        }
+
+        #message {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <h1>1s5 lover</h1>
+        <p id="question"> chkon y7b &lt;abdelber&gt;?</p>
+        <button class="btn" onclick="checkAnswer(this)">&lt;zineb&gt;</button>
+        <button class="btn" onclick="checkAnswer(this)">&lt;oussama&gt;</button>
+        <button class="btn" onclick="checkAnswer(this)">&lt;nada&gt;</button>
+        <button class="btn" onclick="checkAnswer(this)">&lt;imen&gt;</button>
+        <p id="message" class="hidden"></p>
+    </div>
+    <script>
+        let currentQuestionIndex = 0;
+        const questions = [
+            { question: "What is the closing tag for &lt;abdelber&gt;?", correct: "&lt;nada&gt;" },
+            { question: "w &lt;moncef&gt; el 7lab ?", correct: "&lt;imen&gt;" },
+            { question: "chkon howa el gay ?", correct: "&lt;oussama&gt;" },
+            { question: "w &lt;l3nabi&gt;?", correct: "&lt;zineb&gt;" }
+        ];
+
+        function checkAnswer(button) {
+            const userAnswer = button.innerHTML.trim();
+            const correctAnswer = questions[currentQuestionIndex].correct;
+
+            if (userAnswer === correctAnswer) {
+                showMessage("aywah hadik hya", "green");
+                currentQuestionIndex++;
+                if (currentQuestionIndex < questions.length) {
+                    setTimeout(showNextQuestion, 1000);
+                } else {
+                    setTimeout(() => showMessage("khlas cmlt hbb akhrj 9wd", "green"), 1000);
+                }
+            } else {
+                showMessage("lala ykhi 7mar", "red");
+                setTimeout(resetGame, 3000);
+            }
+  
+    // Hide the button that was clicked
+    button.classList.add("hidden");
+    console.log("Button hidden:", button.classList);
+
+    function showCorrectAnswer() {
+    const correctAnswer = questions[currentQuestionIndex].correct;
+    showMessage(`The correct answer is: ${correctAnswer}`, "green");
+            }
+        }
+
+        function showCorrectAnswer() {
+    const correctAnswer = questions[currentQuestionIndex].correct;
+    showMessage(`bayna bli ${correctAnswer}`, "green");
+        }
+
+        function showMessage(message, color) {
+            document.body.style.backgroundColor = color;
+            document.getElementById("message").innerText = message;
+            document.getElementById("message").classList.remove("hidden");
+            hideButtons();
+        }
+
+        function showNextQuestion() {
+            const nextQuestion = questions[currentQuestionIndex].question;
+            document.getElementById("question").innerHTML = nextQuestion;
+            document.body.style.backgroundColor = "#f0f0f0";
+            document.getElementById("message").classList.add("hidden");
+            showButtons();
+        }
+
+        function hideButtons() {
+    const buttons = document.querySelectorAll(".btn");
+    buttons.forEach(button => button.classList.add("hidden"));
+        }
+
+
+        function showButtons() {
+            const buttons = document.querySelectorAll(".btn");
+            buttons.forEach(button => button.classList.remove("hidden"));
+        }
+
+        function resetGame() {
+            document.body.style.backgroundColor = "#f0f0f0";
+            document.getElementById("message").classList.add("hidden");
+            showButtons();
+        }
+    </script>
+</body>
+</html>
